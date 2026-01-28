@@ -1,0 +1,36 @@
+{
+  "ocr_texts": [
+    {
+      "text": "HOLLYWOOD",
+      "bbox": [
+        146,
+        37,
+        468,
+        102
+      ],
+      "confidence": 0.9,
+      "language": "en"
+    }
+  ],
+  "visual_features": [
+    {
+      "type": "landscape",
+      "value": "hilly",
+      "confidence": 0.85
+    },
+    {
+      "type": "vegetation",
+      "value": "sparse",
+      "confidence": 0.8
+    },
+    {
+      "type": "human_activity",
+      "value": "none",
+      "confidence": 0.9
+    }
+  ],
+  "metadata": {
+    "time_of_day": "afternoon",
+    "scene_type": "urban"
+  }
+}

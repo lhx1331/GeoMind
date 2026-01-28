@@ -1,0 +1,179 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "geomind"
+version = "0.1.0"
+description = "通用地理推理 Agent - 基于 PHRV 框架的多模态推理系统"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "GeoMind Team", email = "team@geomind.dev"}
+]
+keywords = ["agent", "geolocation", "multimodal", "llm", "vlm", "langgraph"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    # 核心框架
+    "langchain>=0.1.0",
+    "langgraph>=0.0.20",
+    "langchain-core>=0.1.0",
+    "langchain-openai>=0.0.5",
+    "langchain-anthropic>=0.1.0",
+    
+    # 数据验证和状态管理
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+    
+    # 图像处理
+    "pillow>=10.0.0",
+    "opencv-python>=4.8.0",
+    "exifread>=3.0.0",
+    
+    # HTTP 客户端
+    "httpx>=0.25.0",
+    "aiohttp>=3.9.0",
+    
+    # 工具和工具链
+    "python-dotenv>=1.0.0",
+    "pyyaml>=6.0",
+    "tenacity>=8.2.0",  # 重试机制
+    
+    # 日志和监控
+    "structlog>=23.2.0",
+    "rich>=13.7.0",  # 终端输出美化
+    
+    # CLI
+    "click>=8.1.0",
+    
+    # 可选：MCP 客户端（如果使用 MCP 协议）
+    # "mcp>=0.1.0",  # 需要确认实际包名
+    
+    # 可选：沙盒执行
+    # "e2b>=0.1.0",  # 或使用其他沙盒方案
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.1.0",
+    "pytest-mock>=3.12.0",
+    "black>=23.11.0",
+    "ruff>=0.1.6",
+    "mypy>=1.7.0",
+    "pre-commit>=3.5.0",
+]
+
+api = [
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "python-multipart>=0.0.6",
+]
+
+geoclip = [
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "transformers>=4.35.0",
+    "sentencepiece>=0.1.99",
+]
+
+all = [
+    "geomind[dev,api,geoclip]",
+]
+
+[project.urls]
+Homepage = "https://github.com/your-org/GeoMind"
+Documentation = "https://geomind.readthedocs.io"
+Repository = "https://github.com/your-org/GeoMind"
+Issues = "https://github.com/your-org/GeoMind/issues"
+
+[project.scripts]
+geomind = "geomind.cli:main"
+
+[tool.setuptools]
+packages = ["geomind"]
+
+[tool.setuptools.package-data]
+geomind = ["prompts/templates/*.yaml", "config/schemas/*.json"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310", "py311", "py312"]
+include = '\.pyi?$'
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501",  # line too long (handled by black)
+    "B008",  # do not perform function calls in argument defaults
+]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]  # unused imports
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--cov=geomind",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+]
+markers = [
+    "unit: Unit tests",
+    "integration: Integration tests",
+    "slow: Slow running tests",
+]
+
+[tool.coverage.run]
+source = ["geomind"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+

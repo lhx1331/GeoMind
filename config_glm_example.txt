@@ -1,0 +1,86 @@
+# ============================================
+# GeoMind 配置 - 智谱 GLM-4V 方案
+# ============================================
+# 请将此内容复制到 .env 文件中使用
+
+# ⚠️ 【重要安全警告】⚠️
+# 您提供的 API Key: 501425ecf1ac4746be15d12db9d3af67.XoX3NmZLUev4Dyd2
+# 已经在聊天对话中暴露！这是一个严重的安全问题！
+# 
+# 立即采取行动：
+# 1. 访问智谱 AI 控制台: https://open.bigmodel.cn/usercenter/apikeys
+# 2. 找到并删除这个 API Key
+# 3. 创建一个新的 API Key
+# 4. 将新 Key 填写到下方配置中
+# 
+# 以后请记住：
+# - 永远不要在聊天、代码、文档中直接写入真实的 API Key
+# - 始终使用环境变量或配置文件
+# - .env 文件应该在 .gitignore 中（已配置）
+
+# ============================================
+# LLM 配置
+# ============================================
+# 使用 DeepSeek（性价比高）
+DEEPSEEK_API_KEY=在这里填入您的 DeepSeek Key
+DEEPSEEK_MODEL=deepseek-chat
+DEFAULT_LLM_PROVIDER=deepseek
+
+# ============================================
+# VLM 配置 - 智谱 GLM-4V
+# ============================================
+VLM_PROVIDER=glm
+VLM_GLM_API_KEY=在这里填入您的新 GLM API Key（重置后）
+VLM_GLM_MODEL=glm-4v
+VLM_GLM_BASE_URL=https://open.bigmodel.cn/api/paas/v4
+VLM_TEMPERATURE=0.7
+VLM_MAX_TOKENS=4096
+
+# ============================================
+# GeoCLIP 配置
+# ============================================
+GEOCLIP_MODEL_PATH=./models/geoclip
+GEOCLIP_DEVICE=cuda
+GEOCLIP_TOP_K=5
+GEOCLIP_CACHE_EMBEDDINGS=true
+
+# ============================================
+# 地理服务配置
+# ============================================
+# 使用免费的 OpenStreetMap 服务
+GEOCODE_PROVIDER=nominatim
+POI_SEARCH_PROVIDER=overpass
+
+# ============================================
+# 沙盒配置
+# ============================================
+SANDBOX_PROVIDER=local
+SANDBOX_TIMEOUT=60
+SANDBOX_MEMORY_LIMIT=512
+
+# ============================================
+# Agent 配置
+# ============================================
+AGENT_MAX_ITERATIONS=5
+AGENT_CONFIDENCE_THRESHOLD=0.7
+AGENT_ENABLE_SANDBOX=true
+AGENT_ENABLE_VERIFICATION=true
+
+# ============================================
+# 日志配置
+# ============================================
+LOG_LEVEL=INFO
+LOG_FORMAT=json
+LOG_FILE=logs/geomind.log
+
+# ============================================
+# 性能和缓存配置
+# ============================================
+ENABLE_CACHE=true
+CACHE_TTL=3600
+CACHE_BACKEND=memory
+MAX_CONCURRENT_REQUESTS=5
+REQUEST_TIMEOUT=60
+MAX_RETRIES=3
+RETRY_BACKOFF_FACTOR=2
+

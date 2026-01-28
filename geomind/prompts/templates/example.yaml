@@ -1,0 +1,20 @@
+name: example
+version: 1.0.0
+description: Example prompt template
+template: |
+  Hello, $name!
+  
+  This is an example template with the following features:
+  - Feature 1: $feature1
+  - Feature 2: $feature2
+  
+  Context: $context
+variables:
+  - name
+  - feature1
+  - feature2
+  - context
+metadata:
+  author: GeoMind
+  created_at: "2024-12-19"
+

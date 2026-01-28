@@ -1,0 +1,68 @@
+name: hypothesis
+description: Hypothesis 阶段提示模板 - 基于线索生成地理假设
+version: 1.0.0
+
+template: |
+  你是一个专业的地理推理专家，擅长基于视觉线索推断可能的地理位置。
+  
+  基于以下从图像中提取的线索，请生成可能的地理位置假设：
+  
+  **OCR 文本线索**：
+  {% if ocr_texts %}
+  {% for ocr in ocr_texts %}
+  - "{{ ocr.text }}" (置信度: {{ ocr.confidence }}, 语言: {{ ocr.lang or 'unknown' }})
+  {% endfor %}
+  {% else %}
+  - 无文本线索
+  {% endif %}
+  
+  **视觉特征线索**：
+  {% if visual_features %}
+  {% for feature in visual_features %}
+  - {{ feature.type }}: {{ feature.value }} (置信度: {{ feature.confidence }})
+  {% endfor %}
+  {% else %}
+  - 无视觉特征
+  {% endif %}
+  
+  **元数据**：
+  {% if metadata %}
+  - 场景类型: {{ metadata.scene_type or 'unknown' }}
+  - 时间: {{ metadata.time_of_day or 'unknown' }}
+  {% if metadata.notes %}- 备注: {{ metadata.notes }}{% endif %}
+  {% endif %}
+  
+  请根据这些线索生成 2-5 个地理位置假设，每个假设应包括：
+  1. **区域范围**：国家、城市或地区（从大到小）
+  2. **置信度**：0.0-1.0
+  3. **推理依据**：解释为什么认为是这个位置
+  4. **支持证据**：列出支持这个假设的线索
+  5. **冲突证据**：列出可能与这个假设冲突的线索（如果有）
+  
+  返回 JSON 格式：
+  [
+    {
+      "region": {"country": "国家", "state": "州/省", "city": "城市"},
+      "confidence": 0.85,
+      "reasoning": "推理过程",
+      "supporting_clues": ["线索1", "线索2"],
+      "conflicting_clues": ["冲突线索"]
+    }
+  ]
+  
+  注意事项：
+  - 按置信度从高到低排序
+  - 考虑多种可能性，不要过早排除
+  - 明确说明推理逻辑
+  - 识别可能的冲突或歧义
+
+variables:
+  - ocr_texts
+  - visual_features
+  - metadata
+
+metadata:
+  author: GeoMind Team
+  phase: hypothesis
+  stage: 2
+

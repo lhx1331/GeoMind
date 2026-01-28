@@ -1,0 +1,86 @@
+# GeoMind 配置文件示例 (YAML)
+# 复制此文件为 config.yaml 并修改配置值
+
+# LLM 配置
+llm:
+  provider: openai  # openai, anthropic, local
+  model: gpt-4-turbo-preview
+  openai_api_key: your_openai_api_key_here
+  openai_base_url: https://api.openai.com/v1
+  anthropic_api_key: your_anthropic_api_key_here
+  anthropic_model: claude-3-opus-20240229
+  local_llm_base_url: http://localhost:8000/v1
+  local_llm_model: local-model-name
+
+# VLM 配置
+vlm:
+  provider: openai  # openai, local
+  model: gpt-4-vision-preview
+  api_key: your_openai_api_key_here
+  base_url: https://api.openai.com/v1
+
+# GeoCLIP 配置
+geoclip:
+  model_path: ./models/geoclip
+  device: cuda  # cuda, cpu
+  top_k: 5
+  cache_embeddings: true
+
+# MCP 工具配置
+mcp:
+  server_url: http://localhost:8002
+  api_key: your_mcp_api_key_here
+  timeout: 30
+
+# 地理编码服务配置
+geocode:
+  api_key: your_geocode_api_key
+  provider: google  # google, bing, mapbox
+
+# POI 搜索服务配置
+poi_search:
+  api_key: your_poi_api_key
+  provider: google  # google, foursquare
+
+# Agent 流程配置
+agent:
+  max_iterations: 5
+  confidence_threshold: 0.7
+  enable_sandbox: true
+  enable_verification: true
+
+# 沙盒配置
+sandbox:
+  provider: e2b  # e2b, local, docker
+  timeout: 60
+  memory_limit: 512  # MB
+  disable_network: true
+
+# 日志配置
+logging:
+  level: INFO  # DEBUG, INFO, WARNING, ERROR
+  format: json  # json, text
+  file: logs/geomind.log
+
+# 隐私保护配置
+privacy:
+  location_precision: city  # exact, city, region, country
+  allow_exact_coordinates: false
+  filter_sensitive_locations: true
+
+# 性能配置
+performance:
+  max_concurrent_requests: 5
+  request_timeout: 60
+  max_retries: 3
+  retry_backoff_factor: 2.0
+
+# 缓存配置
+cache:
+  enable: true
+  ttl: 3600  # 秒
+  backend: memory  # memory, redis
+  redis_host: localhost
+  redis_port: 6379
+  redis_db: 0
+
